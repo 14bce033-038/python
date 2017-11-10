@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 import functools
 
+#GUI
 class Tile:
 	value = 0
 	xCoord = 0
@@ -31,6 +32,7 @@ class Tile:
 			return True
 		return False
 
+#Backend
 class Tile8Puzzle:
 	"""8TileBoard"""
 	board = [[0 for x in range(3)] for y in range(3)]
