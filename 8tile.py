@@ -24,7 +24,7 @@ class Tile:
 				print(str(self.xCoord) +" "+ str(self.yCoord) +" "+ str(newX) +" "+ str(newY))
 				Tile8PuzzleBoard.swapTiles(self.xCoord, self.yCoord, newX, newY)
 				return
-		messagebox.showinfo("Invalid move", "Only neighbouring tiles of 0 can be moved!")
+		messagebox.showinfo("Invalid move", "Only neighbouring tiles of empty spot can be moved!")
 		
 	@classmethod
 	def isInRange(self, x, y):
@@ -76,6 +76,7 @@ class Tile8PuzzleBoard:
 		self.GameFrame.title("8Tile Puzzle!")
 		self.GameFrame.geometry("240x257")
 		self.createGUIBoard()
+		self.updateEmptySlot()
 		self.GameFrame.mainloop()
 
 	def slideID(self, tileId):
@@ -92,8 +93,14 @@ class Tile8PuzzleBoard:
 	def createGUIBoard(self):
 		for i in range(3):
 			for j in range(3):
-				self.gameBoard[i][j] = Button(self.GameFrame, text=self.puzzle.board[i][j].value, command= functools.partial(self.updateBoard, self.puzzle.board[i][j].value), height=5, width=10)
+				self.gameBoard[i][j] = Button(self.GameFrame, text=self.puzzle.board[i][j].value, command= functools.partial(self.updateBoard, self.puzzle.board[i][j].value),bg="#ff8f00", height=5, width=10)
 				self.gameBoard[i][j].grid(row=i, column=j)
+				
+	def updateEmptySlot(self):
+ 		for i in range(3):
+ 			for j in range(3):
+ 				if self.puzzle.board[i][j].value == 0:
+ 					self.gameBoard[i][j].configure(bg="#000000")
 
 	def updateBoard(self, id):
 		self.steps = self.steps + 1
